@@ -1,6 +1,6 @@
 package crank
 
-func Wake() {
+func Wake(reason string) {
 
 }
 

@@ -6,33 +6,33 @@ package crank
 #import <Foundation/Foundation.h>
 #import <IOKit/pwr_mgt/IOPMLib.h>
 
+static IOPMAssertionID assertionID = 0;
+
 void
-wake() {
-	CFStringRef* reasonForActivity= CFSTR("Describe Activity Type");
-	IOPMAssertionID assertionID;
-IOReturn success = IOPMAssertionCreateWithName(kIOPMAssertionTypeNoDisplaySleep,
+wake(char* reason) {
+	if (assertionID) return;
+
+	CFStringRef reasonForActivity= CFStringCreateWithCString(NULL, reason, kCFStringEncodingUTF8);
+
+	IOReturn success = IOPMAssertionCreateWithName(kIOPMAssertionTypeNoDisplaySleep,
                                     kIOPMAssertionLevelOn, reasonForActivity, &assertionID);
-if (success == kIOReturnSuccess)
-{
- 
-    //Add the work you need to do without
-    //  the system sleeping here.
- 
-    success = IOPMAssertionRelease(assertionID);
-    //The system will be able to sleep again.
-}
+    free(reason);
 }
 
 void
 releaseWake() {
+	if (!assertionID) return;
 
+	IOPMAssertionRelease(assertionID);
+
+	assertionID = 0;
 }
 
 */
 import "C"
 
-func Wake() {
-	C.wake()
+func Wake(reason string) {
+	C.wake(C.CString(reason))
 }
 
 func ReleaseWake() {

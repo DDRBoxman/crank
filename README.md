@@ -8,3 +8,19 @@
 Cross platform Go library to stop the OS from sleeping.
 
 ![prescription bottle](http://ddrboxman.github.io/crank/rx.png)
+
+```
+package main
+
+import (
+	"github.com/DDRBoxman/crank"
+)
+
+func main() {
+	crank.Wake("com.test.app.name")
+	defer crank.ReleaseWake()
+
+	// Do Stuff :)
+}
+
+```
