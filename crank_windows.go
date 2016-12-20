@@ -4,5 +4,5 @@ package crank
 import "C"
 
 func Wake(reason string) {
-	C.SetThreadExecutionState(ES_CONTINUOUS | ES_SYSTEM_REQUIRED);
+	C.SetThreadExecutionState(C.ES_CONTINUOUS | C.ES_SYSTEM_REQUIRED);
 }
