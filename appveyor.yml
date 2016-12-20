@@ -8,7 +8,7 @@ environment:
   GOPATH: c:\gopath
 
 install:
-  - set PATH=C:\msys64\usr\bin;%PATH%
+  - set PATH=C:\MinGW\bin;%PATH%
   - echo %PATH%
   - echo %GOPATH%
   - go version
